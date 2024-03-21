@@ -148,8 +148,14 @@ class MQTTMessagePage extends HookWidget {
                         ),
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.all(16),
-                        child: Text(
-                          subscribedTopics.value[e]?.join('\n') ?? '',
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              subscribedTopics.value[e]?.join('\n') ?? '',
+                            ),
+                          ),
                         ),
                       ),
                     )
