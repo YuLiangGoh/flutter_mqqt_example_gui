@@ -12,7 +12,7 @@ class ConnectBrokerPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final textEditingControllerBroker = useTextEditingController(
-      text: '192.168.100.11',
+      text: 'ws://192.168.1.117/mqtt',
     );
     final brokerEnabled = useState(true);
     final textEditingControllerClientId = useTextEditingController(

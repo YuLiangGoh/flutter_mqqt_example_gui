@@ -1,24 +1,25 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mqtt_client/mqtt_browser_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttUtils {
-  late MqttServerClient client;
+  late MqttBrowserClient client;
 
   Future<void> connect(
       String broker, String clientId, String userName, String password) async {
-    client = MqttServerClient(broker, '');
+    client = MqttBrowserClient(broker, '');
     client.logging(on: true);
-    client.setProtocolV311();
     client.onDisconnected = onDisconnected;
     client.onConnected = onConnected;
     client.onSubscribed = onSubscribed;
     client.onUnsubscribed = onUnsubscribed;
     client.onSubscribeFail = onSubscribeFail;
     client.pongCallback = pong;
-    client.port = 1883;
+    client.connectTimeoutPeriod = 2000;
+    client.port = 8000;
+    client.websocketProtocols = MqttClientConstants.protocolsSingleDefault;
 
     final connMess = MqttConnectMessage()
         .withClientIdentifier(clientId)
